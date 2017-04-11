@@ -17,9 +17,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    NavigationView navigationView = null;
-    Toolbar toolbar = null;
-    FloatingActionButton fab;
+    private     NavigationView navigationView = null;
+    private    Toolbar toolbar = null;
+    private    FloatingActionButton fab;
+    private     int fabInt = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +39,23 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                switch (fabInt){
+                    case 0:
+                        snackbarMessage(view,"Esto es una prueba 0");
+                        break;
+                    case 1:
+                        snackbarMessage(view,"Esto es una prueba 1");
+                        break;
+                    case 2:
+                        snackbarMessage(view,"Esto es una prueba 2");
+                        break;
+                    case 3:
+                        snackbarMessage(view,"Esto es una prueba 3");
+                        break;
+                    case 4:
+                        snackbarMessage(view,"Esto es una prueba 4");
+                        break;
+                }
             }
         });
 
@@ -92,30 +108,35 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_note) {
+            fabInt = 0;
             fab.setImageResource(R.drawable.ic_add_black_24dp);
             MainFragment fragment = new MainFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_Photos) {
+            fabInt = 1;
             fab.setImageResource(R.drawable.ic_menu_camera);
             GalleryFragment fragment = new GalleryFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_videos) {
+            fabInt = 2;
             fab.setImageResource(R.drawable.ic_video_call_black_24dp);
             VideoFragment fragment = new VideoFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_audios) {
+            fabInt = 3;
             fab.setImageResource(R.drawable.ic_mic_none_black_24dp);
             AuidoFragment fragment = new AuidoFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_maps) {
+            fabInt = 4;
             fab.setImageResource(R.drawable.ic_location_on_black_24dp);
             LocationFragment fragment = new LocationFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -130,5 +151,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void snackbarMessage(View view,String text){
+        Snackbar.make(view, text, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+
     }
 }
